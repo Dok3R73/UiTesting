@@ -8,7 +8,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 public class TestKeysOne {
 
     @Test
-    public void testirovanie() {
+    public void test() {
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
