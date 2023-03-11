@@ -26,6 +26,4 @@ public class OrderOverviewPage {
     public void clickFinishBtn() {
         finishBtn.click();
     }
-
-
 }

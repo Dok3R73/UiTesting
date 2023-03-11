@@ -26,6 +26,4 @@ public class BasketPage {
     public void clickCheckoutBtn() {
         checkoutBtn.click();
     }
-
-
 }
