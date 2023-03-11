@@ -1,56 +1,60 @@
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import java.time.Duration;
+
 public class TestKeysOne {
 
-    @Test
-    public void test() {
+    public static LoginPage loginPage;
+    public static MainPage mainPage;
+    public static BasketPage basketPage;
+    public static CheckInfoPage checkInfoPage;
+    public static OrderOverviewPage orderOverviewPage;
 
+    public static WebDriver driver;
+
+    @BeforeClass
+    public static void setup() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
 
-        WebDriver driver = new ChromeDriver(options);
+        driver = new ChromeDriver(options);
+
+        loginPage = new LoginPage(driver);
+        mainPage = new MainPage(driver);
+        basketPage = new BasketPage(driver);
+        checkInfoPage = new CheckInfoPage(driver);
+        orderOverviewPage = new OrderOverviewPage(driver);
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         driver.get("https://www.saucedemo.com/");
+    }
 
-        WebElement userName = driver.findElement(By.xpath("//input[@data-test='username']"));
-        userName.sendKeys("standard_user");
+    @Test
+    public void test() {
+        loginPage.inputLogin("standard_user");
+        loginPage.inputPassword("secret_sauce");
+        loginPage.clickLoginBtn();
 
-        WebElement password = driver.findElement(By.cssSelector("input[name=password]"));
-        password.sendKeys("secret_sauce");
+        mainPage.clickAddBtn();
+        mainPage.clickBasketBtn();
 
-        WebElement webElement = driver.findElement(By.id("login-button"));
-        webElement.click();
+        basketPage.clickCheckoutBtn();
 
-        //------------------------------------------------
+        checkInfoPage.inputFirstName("test");
+        checkInfoPage.inputLastName("test");
+        checkInfoPage.inputPostalCode("test");
+        checkInfoPage.clickContinueBtn();
 
-        WebElement listElementAdd = driver.findElement(By.xpath("//div[@class='inventory_item'][1]//button[text()='Add to cart']"));
-        listElementAdd.click();
+        orderOverviewPage.clickFinishBtn();
+    }
 
-        WebElement basket = driver.findElement(By.id("shopping_cart_container"));
-        basket.click();
-
-        WebElement checkout = driver.findElement(By.cssSelector("button[name=checkout]"));
-        checkout.click();
-
-        //--------------------------------------------------
-
-        WebElement firstName = driver.findElement(By.id("first-name"));
-        firstName.sendKeys("test");
-
-        WebElement lastName = driver.findElement(By.xpath("//input[@name='lastName']"));
-        lastName.sendKeys("test");
-
-        WebElement postalCode = driver.findElement(By.cssSelector("input[name=postalCode]"));
-        postalCode.sendKeys("test");
-
-        WebElement continueButton = driver.findElement(By.id("continue"));
-        continueButton.click();
-
-        WebElement finishButton = driver.findElement(By.id("finish"));
-        finishButton.click();
+    @AfterClass
+    public static void closeBrowser() {
+        driver.close();
     }
 }
