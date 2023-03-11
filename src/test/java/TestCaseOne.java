@@ -7,7 +7,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.time.Duration;
 
-public class TestKeysOne {
+public class TestCaseOne {
 
     public static LoginPage loginPage;
     public static MainPage mainPage;
