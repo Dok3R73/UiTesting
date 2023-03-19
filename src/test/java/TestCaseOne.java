@@ -9,8 +9,8 @@ import java.time.Duration;
 
 public class TestCaseOne {
 
-    private static final String URL_NAME = "https://www.saucedemo.com/checkout-complete.html";
-    private static final String FINISH_MESSAGE = "Thank you for your order!";
+    private static final String FINISH_REDIRECT_URL = "https://www.saucedemo.com/checkout-complete.html";
+    private static final String FINISH_MESSAGE = "Thank you for your order";
 
     public static LoginPage loginPage;
     public static MainPage mainPage;
@@ -55,7 +55,9 @@ public class TestCaseOne {
 
         orderOverviewPage.clickFinishBtn();
 
-        Assert.assertEquals(driver.getCurrentUrl(), URL_NAME);
+        Assert.assertEquals(driver.getCurrentUrl(), FINISH_REDIRECT_URL);
+
+        Assert.assertTrue(driver.getPageSource().contains(FINISH_MESSAGE));
     }
 
     @AfterClass
