@@ -1,4 +1,5 @@
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -8,9 +9,12 @@ import java.time.Duration;
 
 public class TestCaseOne {
 
+    private static final String URL_NAME = "https://www.saucedemo.com/checkout-complete.html";
+    private static final String FINISH_MESSAGE = "Thank you for your order!";
+
     public static LoginPage loginPage;
     public static MainPage mainPage;
-    public static BasketPage basketPage;
+    public static CartPage cartPage;
     public static CheckInfoPage checkInfoPage;
     public static OrderOverviewPage orderOverviewPage;
 
@@ -25,7 +29,7 @@ public class TestCaseOne {
 
         loginPage = new LoginPage(driver);
         mainPage = new MainPage(driver);
-        basketPage = new BasketPage(driver);
+        cartPage = new CartPage(driver);
         checkInfoPage = new CheckInfoPage(driver);
         orderOverviewPage = new OrderOverviewPage(driver);
 
@@ -42,7 +46,7 @@ public class TestCaseOne {
         mainPage.clickAddBtn();
         mainPage.clickBasketBtn();
 
-        basketPage.clickCheckoutBtn();
+        cartPage.clickCheckoutBtn();
 
         checkInfoPage.inputFirstName("test");
         checkInfoPage.inputLastName("test");
@@ -50,6 +54,8 @@ public class TestCaseOne {
         checkInfoPage.clickContinueBtn();
 
         orderOverviewPage.clickFinishBtn();
+
+        Assert.assertEquals(driver.getCurrentUrl(), URL_NAME);
     }
 
     @AfterClass

@@ -3,19 +3,19 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class OrderOverviewPage {
+public class CartPage {
 
     public WebDriver driver;
 
-    @FindBy(id = "finish")
-    private WebElement finishBtn;
+    @FindBy(css = "button[name=checkout]")
+    private WebElement checkoutBtn;
 
-    public OrderOverviewPage(WebDriver driver) {
+    public CartPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
 
-    public void clickFinishBtn() {
-        finishBtn.click();
+    public void clickCheckoutBtn() {
+        checkoutBtn.click();
     }
 }
